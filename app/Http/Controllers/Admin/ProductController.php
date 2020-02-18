@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\ImportProductsAction;
 use App\Actions\StoreProductAction;
 use App\Actions\UpdateProductAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ImportProductRequest;
 use App\Http\Requests\Admin\Products\StoreProductRequest;
 use App\Http\Requests\Admin\Products\UpdateProductRequest;
 use App\Product;
@@ -102,5 +104,19 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->withSuccess(__('The product was successfully deleted'));
+    }
+
+    /**
+     * Import the specified resource
+     *
+     * @param ImportProductRequest $request
+     * @param ImportProductsAction $action
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function import(ImportProductRequest $request, ImportProductsAction $action)
+    {
+        $importedProducts = $action->setImportFile($request->file('import_file'))->execute();
+
+        return redirect()->route('admin.products.index')->withSuccess("{$importedProducts} products were imported!");
     }
 }
