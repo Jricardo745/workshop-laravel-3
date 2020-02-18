@@ -19,7 +19,7 @@ class Product extends Model
      */
     public function priceFormatted(): string
     {
-        return MoneyHelper::format($this->price, config('app.monetary_locale'));
+        return number_format($this->price, 2);
     }
 
     /**
@@ -57,5 +57,13 @@ class Product extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueableRelations()
+    {
+        // TODO: Implement getQueueableRelations() method.
     }
 }
