@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/js
+/public/fonts
+/public/css
 /storage/*.key
 /vendor
 /tests/coverage
@@ -13,3 +16,4 @@ npm-debug.log
 yarn-error.log
 .env.testing
 /.idea
+*.html
